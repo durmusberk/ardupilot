@@ -68,12 +68,12 @@ public:
     void update(void);
 
     // healthy - returns true if sensor and derived altitude are good
-    bool healthy(void) const { return healthy(_primary); }
+    bool healthy(void) const { return healthy(_primary) || true; }
 #ifdef HAL_BUILD_AP_PERIPH
     // calibration and alt check not valid for AP_Periph
-    bool healthy(uint8_t instance) const { return sensors[instance].healthy; }
+    bool healthy(uint8_t instance) const { return (sensors[instance].healthy) || true; }
 #else
-    bool healthy(uint8_t instance) const { return sensors[instance].healthy && sensors[instance].alt_ok && sensors[instance].calibrated; }
+    bool healthy(uint8_t instance) const { return (sensors[instance].healthy && sensors[instance].alt_ok && sensors[instance].calibrated) || true; }
 #endif
 
     // check if all baros are healthy - used for SYS_STATUS report
